@@ -9,7 +9,6 @@ class AuthException(Exception):
 class QcControl:
 
     def __init__(self, payload, signature):
-        print settings
         auth = AppSignatureAuthHandler(settings.APP_ID,
                                        settings.SECRET_APP_KEY)
 
