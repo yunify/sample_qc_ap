@@ -11,8 +11,8 @@ Beside this web application, you will also need to parpare some description for 
  - contact info (email or phone number)
  - url to this app
  - app logo url (48*48px)
- - cover image url (210*140)
- - image urls as detail description of this app (600*400)
+ - cover image url (210*140px)
+ - image urls as detail description of this app (600*400px)
 
 There are example images in /sample_qc_app/mysite/sample/static. Above items need to be submitted to App Center in  [QingCloud]
 
