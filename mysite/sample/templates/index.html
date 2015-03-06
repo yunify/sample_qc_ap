@@ -1,18 +1,63 @@
 <!DOCTYPE html>
 <html>
+  <head>
+	<script src="/static/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript">
+		function toggle_service(eip_id){
+            current_status = $("#" + eip_id).text()
+			if(current_status == "enable"){
+				action = "enable"
+				next_status = "disable"
+			}else{
+				action = "disable"
+				next_status = "enable"
+			}
+            $.post("service",
+              {"resource_id":eip_id,
+			   "user_id": "{{ user_id }}",
+			   "zone": "{{ zone }}",
+			   "action": action
+			  },
+			  function (data, status){
+	              console.log("Data: " + data + "\nStatus: " + status);
+				  if ("success" == status) {
+				  	$("#" + eip_id).text(next_status)
+				  }
+            })
+        };
+	</script>
+  </head>
   <body>
-    <p>Hello {{username}}!</p>
-	<p>Welcome to QingCloud App</p>
-	<p>Your notify email address is {{notify_email}}</p>
-
     <script type="text/javascript">
         // notify qingcloud window to adjust iframe height
         if(parent.location != location && parent.postMessage) {
                 window.addEventListener('load', function() {
-                    var origin = 'https://console.qingcloud.com';
+                    var origin = 'https://console.staging.com';
                     parent.postMessage(document.body.scrollHeight, origin);
                 });
         }
     </script>
+
+    <p>Hello {{username}}!</p>
+	<p>Welcome to QingCloud App</p>
+	<p>Your notify email address is {{notify_email}}</p>
+	
+	<table width="auto" border="1">
+	    {% for eip in eips %}
+	        <tr>
+	        	<td>{{ eip.eip_id }}</td>
+				<td>{{ eip.eip_addr }}</td>
+				<td>{{ eip.status }}</td>
+				<td><button id='{{ eip.eip_id }}' onclick="toggle_service('{{ eip.eip_id }}')">{{ eip.btn_name }}</button></td>
+			</tr>
+	    {% endfor %}
+	</table>
+
+
+    <ul>
+
+    </ul>
+	
+
   </body>
 </html>
