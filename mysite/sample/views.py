@@ -6,7 +6,7 @@ import traceback
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.template import RequestContext, loader
 
-user_control={}
+user_control= {}
 
 # allow post from other site
 @csrf_exempt

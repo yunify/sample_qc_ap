@@ -84,6 +84,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # please use your own id and key
-APP_ID = "app-on93dtee"
+APP_ID = "app-1234abcd"
 SECRET_APP_KEY = "EUuJOR3FvFxiw3fh0TxrGOlSgBTGS5PW0xpIGCBJ"
-SERVICE_ID = "apps-9usj3sfx"
+SERVICE_ID = "apps-1234abcd"

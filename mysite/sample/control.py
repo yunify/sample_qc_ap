@@ -49,24 +49,36 @@ class QcControl:
         return AppConnection(settings.APP_ID,
                              settings.SECRET_APP_KEY,
                              zone,
-                             access_token=access_token,
-                             host='192.168.7.5', port=8882, protocol='http')
+                             access_token=access_token)
 
     def view_app(self):
         self.is_notification = False
 
     def install_app(self):
+        # you can inital user management in this event
+        # or leave it to view_app
+
         print "%s installed App"%self.req["user_id"]
 
     def uninstall_app(self):
+        # stop all your service and unlease-app for this user
+
         print "%s uninstalled App"%self.req["user_id"]
 
+        user_id    = self.req["user_id"]
+        zone       = self.req["zone"]
+        self.get_connection(None, zone).unlease_app([user_id, settings.APP_ID])
+
     def suspend_resource(self):
+        # do something to stop your service
+
         print "App resource %s for %s of %s has been suspended" \
                 %(self.req["appr_id"], self.req["service_id"],
                   self.req["user_id"])
 
     def resume_resource(self):
+        # do something to resume your service
+
         print "App resource %s for %s of %s has been resumed" \
                 %(self.req["appr_id"], self.req["service_id"],
                   self.req["user_id"])    
@@ -75,3 +87,6 @@ class QcControl:
         print "Related QC resource of %s for %s of %s has been terminated" \
                 %(self.req["appr_id"], self.req["service_id"],
                   self.req["user_id"])
+        appr_id    = self.req["appr_id"]
+        zone       = self.req["zone"]
+        self.get_connection(None, zone).unlease_app([appr_id])
